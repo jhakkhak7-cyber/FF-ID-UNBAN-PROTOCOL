@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FF ID UNBAN PROTOCOL | AMANIC</title>
+    <style>
+        :root {
+            --primary-color: #00f2fe;
+            --secondary-color: #4facfe;
+            --warning-color: #ffcc00;
+            --bg-color: #0b0e14;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-color);
+            background-image: radial-gradient(circle at center, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px var(--secondary-color);
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            padding: 35px;
+            border-radius: 25px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-top: 20px;
+        }
+
+        .input-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 500; color: #bbb; }
+        
+        input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #444;
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .btn-next {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(90deg, #00dbde 0%, #fc00ff 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.4s;
+            box-shadow: 0 5px 15px rgba(0, 219, 222, 0.3);
+        }
+
+        .btn-next:hover { transform: scale(1.02); filter: brightness(1.2); }
+
+        /* Loading & Results Screen */
+        #result-screen { display: none; text-align: center; }
+
+        .loader-ring {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            border: 6px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            border-top: 6px solid var(--primary-color);
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .alert-box {
+            display: none;
+            background: rgba(255, 204, 0, 0.1);
+            border: 2px solid var(--warning-color);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0px rgba(255, 204, 0, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 204, 0, 0); }
+            100% { box-shadow: 0 0 0 0px rgba(255, 204, 0, 0); }
+        }
+
+        .timer-display {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary-color);
+            margin: 15px 0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .socials {
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            width: 100%;
+            text-align: center;
+        }
+
+        .social-btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .insta { background: #E1306C; color: white; }
+        .yt { background: #FF0000; color: white; }
+    </style>
+</head>
+<body>
+
+    <h1>FF ID UNBAN PROTOCOL</h1>
+
+    <div id="page-1" class="container">
+        <div class="input-group"><label>Country</label><input type="text" placeholder="e.g. India"></div>
+        <div class="input-group"><label>Game UID</label><input type="number" placeholder="Enter ID..."></div>
+        <div class="input-group"><label>Account Level</label><input type="number" placeholder="e.g. 72"></div>
+        <button class="btn-next" onclick="startProcess()">PROCESS UNBAN</button>
+    </div>
+
+    <div id="result-screen" class="container">
+        <div id="loading-div">
+            <h3 style="color: var(--primary-color);">CONNECTING TO DATABASE...</h3>
+            <div class="loader-ring"></div>
+            <p id="loading-text">Bypassing security layers (Step 1/3)...</p>
+        </div>
+
+        <div id="alert-div" class="alert-box">
+            <h2 style="color: var(--warning-color); margin-top: 0;">⚠️ SERVER OVERLOAD</h2>
+            <p style="font-size: 1.1rem; line-height: 1.5;">
+                Due to extremely high server load, your unban request is in queue. 
+                <strong>Your account will be unbanned in exactly:</strong>
+            </p>
+            
+            <div id="timer" class="timer-display">30:00</div>
+            
+            <p style="color: #ccc; font-style: italic;">Please do not refresh this page.</p>
+        </div>
+    </div>
+
+    <div class="socials">
+        <p style="color: #888;">Protocol Managed By:</p>
+        <a href="https://instagram.com/mickeyy__ff" target="_blank" class="social-btn insta">Instagram: mickeyy__ff</a>
+        <a href="https://youtube.com/@PIXLJACKLIVE" target="_blank" class="social-btn yt">YouTube: PIXLJACKLIVE</a>
+    </div>
+
+    <script>
+        function startProcess() {
+            document.getElementById('page-1').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            // Fake loading messages
+            setTimeout(() => { document.getElementById('loading-text').innerText = "Analyzing Ban Logs (Step 2/3)..."; }, 5000);
+            setTimeout(() => { document.getElementById('loading-text').innerText = "Injecting Protocol (Step 3/3)..."; }, 10000);
+
+            // After 15 seconds, show final result
+            setTimeout(() => {
+                document.getElementById('loading-div').style.display = 'none';
+                document.getElementById('alert-div').style.display = 'block';
+                startCountdown(30); // 30 Minutes
+            }, 15000);
+        }
+
+        function startCountdown(minutes) {
+            let seconds = minutes * 60;
+            const timerElement = document.getElementById('timer');
+
+            const interval = setInterval(() => {
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+
+                timerElement.innerText = 
+                    (mins < 10 ? '0' : '') + mins + ":" + (secs < 10 ? '0' : '') + secs;
+
+                if (seconds <= 0) {
+                    clearInterval(interval);
+                    timerElement.innerText = "UNBANNED!";
+                }
+                seconds--;
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
